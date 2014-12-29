@@ -71,7 +71,7 @@ func Article(attributes Attr, html ...string) string {
 
 // 定义声音内容
 //
-// <<audio> 标签定义声音，比如音乐或其他音频流。
+// <audio> 标签定义声音，比如音乐或其他音频流。
 func Audio(attributes Attr, html ...string) string {
 	return d("audio", attributes, html)
 }
@@ -290,6 +290,65 @@ func Dt(attributes Attr, html ...string) string {
 // <em> 标签告诉浏览器把其中的文本表示为强调的内容。对于所有浏览器来说，这意味着要把这段文字用斜体来显示。
 func Em(attributes Attr, html ...string) string {
 	return d("em", attributes, html)
+}
+
+// 定义外部交互内容或插件
+//
+// <embed> 标签定义嵌入的内容，比如插件。
+func Embed(attributes Attr) string {
+	var s bytes.Buffer
+	s.WriteString("<embed")
+	for k, v := range attributes {
+		s.WriteString(" " + k + "=\"" + v + "\"")
+	}
+	s.WriteString("/>")
+	return s.String()
+}
+
+// 定义服务器发送的事件来源
+//
+// <event-source> 标签定义由服务器发送的事件的来源。
+func EventSource(attributes Attr, html ...string) string {
+	return d("event-source", attributes, html)
+}
+
+// 定义关于文档的信息
+//
+// <head> 标签用于定义文档的头部，它是所有头部元素的容器。<head> 中的元素可以引用脚本、指示浏览器在哪里找到样式表、提供元信息等等。
+// 文档的头部描述了文档的各种属性和信息，包括文档的标题、在 Web 中的位置以及和其他文档的关系等。绝大多数文档头部包含的数据都不会真正作为内容显示给读者。
+// 下面这些标签可用在 head 部分：<base>, <link>, <meta>, <script>, <style>, 以及 <title>。
+// <title> 定义文档的标题，它是 head 部分中唯一必需的元素。
+func Head(attributes Attr, html ...string) string {
+	return d("head", attributes, html)
+}
+
+// 定义水平线
+//
+// <hr> 标签在 HTML 页面中创建一条水平线。
+// 水平分隔线（horizontal rule）可以在视觉上将文档分隔成各个部分。
+func Hr(attributes Attr) string {
+	var s bytes.Buffer
+	s.WriteString("<hr")
+	for k, v := range attributes {
+		s.WriteString(" " + k + "=\"" + v + "\"")
+	}
+	s.WriteString("/>")
+	return s.String()
+}
+
+// 定义段落
+//
+// <p> 标签会自动在其前后创建一些空白。浏览器会自动添加这些空间，您也可以在样式表中规定。
+func P(attributes Attr, html ...string) string {
+	return d("p", attributes, html)
+}
+
+// 定义文档的标题
+//
+// <title> 元素可定义文档的标题。
+// 浏览器会以特殊的方式来使用标题，并且通常把它放置在浏览器窗口的标题栏或状态栏上。同样，当把文档加入用户的链接列表或者收藏夹或书签列表时，标题将成为该文档链接的默认名称。
+func Title(attributes Attr, html ...string) string {
+	return d("title", attributes, html)
 }
 
 // 定义 HTML 文档
