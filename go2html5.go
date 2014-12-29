@@ -376,4 +376,5 @@ func d(tag string, attributes Attr, html []string) string {
 	return s.String()
 }
 
+// HTML标签属性
 type Attr map[string]string
