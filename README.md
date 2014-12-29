@@ -60,7 +60,7 @@ func CustomButton(href, name string, color int) string {
         c = "btn-red"
 	}
 
-	s.WriteString("<a class=\"btn" + c + "\">" + name +"</a>")
+	s.WriteString("<a href=\"" + href + "\" class=\"btn" + c + "\">" + name +"</a>")
 	return s.String()
 }
 ```
