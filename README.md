@@ -44,8 +44,6 @@ func CustomTag(attributes Attr, html []string) string {
 ```go
 // 自定义按钮
 func CustomButton(href, name string, color int) string {
-	var s bytes.Buffer
-
 	var c string
 	switch color {
 	case 0:
@@ -60,8 +58,7 @@ func CustomButton(href, name string, color int) string {
         c = "btn-red"
 	}
 
-	s.WriteString("<a href=\"" + href + "\" class=\"btn" + c + "\">" + name +"</a>")
-	return s.String()
+	return "<a href=\"" + href + "\" class=\"btn" + c + "\">" + name +"</a>"
 }
 ```
 
