@@ -1,15 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
+	"io"
+	"log"
+	"net/http"
 	"time"
 
-	"bytes"
 	. "github.com/Bluek404/go2html5"
 )
 
 func main() {
-	html := Html(Attr{"lang": "en"},
+	html := Html(Attr{"lang": "cn"},
 		Head(nil,
 			Title(nil, "Go2HTML5 Example"),
 		),
@@ -18,23 +20,24 @@ func main() {
 				"现在是：",
 				func() string {
 					var s bytes.Buffer
-					time := time.Now().Hour()
+					t := time.Now().Hour()
 					switch {
-					case time >= 0 && time <= 4:
+					case t >= 0 && t <= 4:
 						s.WriteString("凌晨")
-					case time >= 5 && time <= 7:
+					case t >= 5 && t <= 7:
 						s.WriteString("早上")
-					case time >= 8 && time < 10:
+					case t >= 8 && t < 10:
 						s.WriteString("上午")
-					case time >= 11 && time <= 13:
+					case t >= 11 && t <= 13:
 						s.WriteString("中午")
-					case time >= 14 && time <= 19:
+					case t >= 14 && t <= 19:
 						s.WriteString("下午")
-					case time >= 20 && time <= 22:
+					case t >= 20 && t <= 22:
 						s.WriteString("晚上")
-					case time >= 23 && time <= 24:
+					case t >= 23 && t <= 24:
 						s.WriteString("深夜")
 					}
+					s.WriteString(time.Now().Format("3点4分5秒"))
 					return s.String()
 				}(),
 			),
@@ -44,5 +47,13 @@ func main() {
 			),
 		),
 	)
-	fmt.Println(html)
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, html)
+	})
+
+	err := http.ListenAndServe("127.0.0.1:8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
