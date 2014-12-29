@@ -11,6 +11,19 @@ import (
 )
 
 func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		t := time.Now().UnixNano()
+		io.WriteString(w, index())
+		log.Println(r.RemoteAddr, r.Method, r.URL, time.Now().UnixNano()-t, "ns")
+	})
+
+	err := http.ListenAndServe("127.0.0.1:8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func index() string {
 	html := Html(Attr{"lang": "cn"},
 		Head(nil,
 			Title(nil, "Go2HTML5 Example"),
@@ -47,13 +60,5 @@ func main() {
 			),
 		),
 	)
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, html)
-	})
-
-	err := http.ListenAndServe("127.0.0.1:8080", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	return html
 }
