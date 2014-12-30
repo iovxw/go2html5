@@ -58,7 +58,7 @@ func CustomButton(href, name string, color int) string {
         c = "btn-red"
 	}
 
-	return "<a href=\"" + href + "\" class=\"btn" + c + "\">" + name +"</a>"
+	return A(Attr{"class":"btn "+c, "href":href}, name)
 }
 ```
 
