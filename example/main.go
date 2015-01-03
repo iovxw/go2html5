@@ -24,12 +24,12 @@ func main() {
 }
 
 func index() string {
-	html := Html(Attr{"lang": "cn"},
-		Head(nil,
-			Title(nil, "Go2HTML5 Example"),
+	html := Html_(Attr{"lang": "cn"},
+		Head_(nil,
+			Title_(nil, "Go2HTML5 Example"),
 		),
-		Body(nil,
-			P(nil,
+		Body_(nil,
+			P_(nil,
 				"现在是：",
 				func() string {
 					var s bytes.Buffer
@@ -54,9 +54,9 @@ func index() string {
 					return s.String()
 				}(),
 			),
-			Hr(nil),
-			P(nil,
-				"Written in ", A(Attr{"href": "http://golang.org"}, "Go!"),
+			Hr_(nil),
+			P_(nil,
+				"Written in ", A_(Attr{"href": "http://golang.org"}, "Go!"),
 			),
 		),
 	)

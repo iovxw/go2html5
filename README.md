@@ -20,10 +20,12 @@ HTML5的所有标签正在逐步添加中
 
 可以自己写函数
 
+为了与其他函数区分，推荐写自定义标签和控件时在名称后面加_
+
 例如：
 
 ```go
-func CustomTag(attributes Attr, html []string) string {
+func CustomTag_(attributes Attr, html []string) string {
     var tag = "custom-tag"
 	var s bytes.Buffer
 	s.WriteString("<" + tag)
@@ -43,7 +45,7 @@ func CustomTag(attributes Attr, html []string) string {
 
 ```go
 // 自定义按钮
-func CustomButton(href, name string, color int) string {
+func CustomButton_(href, name string, color int) string {
 	var c string
 	switch color {
 	case 0:
@@ -58,7 +60,7 @@ func CustomButton(href, name string, color int) string {
         c = "btn-red"
 	}
 
-	return A(Attr{"class":"btn "+c, "href":href}, name)
+	return A_(Attr{"class":"btn "+c, "href":href}, name)
 }
 ```
 
@@ -66,12 +68,12 @@ Example
 -------
 
 ```go
-Html(Attr{"lang": "cn"},
-	Head(nil,
-		Title(nil, "Go2HTML5 Example"),
+Html_(Attr{"lang": "cn"},
+	Head_(nil,
+		Title_(nil, "Go2HTML5 Example"),
 	),
-	Body(nil,
-		P(nil,
+	Body_(nil,
+		P_(nil,
 			"现在是：",
 			func() string {
 				var s bytes.Buffer
@@ -82,7 +84,7 @@ Html(Attr{"lang": "cn"},
 				case t >= 5 && t <= 7:
 					s.WriteString("早上")
 				case t >= 8 && t < 10:
-					s.WriteString("上午")
+						s.WriteString("上午")
 				case t >= 11 && t <= 13:
 					s.WriteString("中午")
 				case t >= 14 && t <= 19:
@@ -96,9 +98,9 @@ Html(Attr{"lang": "cn"},
 				return s.String()
 			}(),
 		),
-		Hr(nil),
-		P(nil,
-			"Written in ", A(Attr{"href": "http://golang.org"}, "Go!"),
+		Hr_(nil),
+		P_(nil,
+			"Written in ", A_(Attr{"href": "http://golang.org"}, "Go!"),
 		),
 	),
 )
